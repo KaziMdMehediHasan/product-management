@@ -61,14 +61,7 @@ const createOrder = async (req: Request, res: Response) => {
             }
         }
 
-    } catch (error: any) {
-        // if user sends wrong product id this error will pop up
-        if (error.name === "CastError") {
-            res.status(400).json({
-                status: false,
-                message: "Invalid Product Id"
-            })
-        }
+    } catch (error) {
         res.status(403).json({
             message: error
         });

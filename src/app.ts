@@ -12,5 +12,8 @@ app.use('/api/products', ProductRoutes);
 // for orders
 app.use('/api/orders', OrderRoutes);
 
+app.get('/', (req, res) => {
+    res.send('Welcome to Assignment-2 Server');
+})
 
 export default app;

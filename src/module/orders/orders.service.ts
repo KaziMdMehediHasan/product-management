@@ -8,8 +8,6 @@ const createAnOrderToDB = async (id: string) => {
 }
 
 const updateProductQuantity = async (id: string, quantity: number) => {
-    console.log('Id From service', id);
-    console.log('Quantity From service', quantity);
     const updateProductInventory = await Products.findByIdAndUpdate(
         { _id: id },
         { $inc: { "inventory.quantity": -quantity } },
