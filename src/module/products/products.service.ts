@@ -16,12 +16,19 @@ const fetchSingleProductFromDB = async (productId: string) => {
     return result;
 }
 
-const updateProductInfoDB = async () => {
+const updateProductInfoDB = async (productId: string, updatedProductData: Partial<TProduct>) => {
+    const result = await Products.findByIdAndUpdate(
+        { _id: productId }, //finding the product
+        { $set: updatedProductData }, //updating a field
+        { new: true }
 
+    )
+    return result;
 }
 
 export const ProductServices = {
     createProductDB,
     fetchProductFromDB,
-    fetchSingleProductFromDB
+    fetchSingleProductFromDB,
+    updateProductInfoDB
 }

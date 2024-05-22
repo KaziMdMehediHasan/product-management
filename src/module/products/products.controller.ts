@@ -42,8 +42,30 @@ const fetchSingleProduct = async (req: Request, res: Response) => {
     }
 }
 
+const updateSingleProduct = async (req: Request, res: Response) => {
+    try {
+        const productId = req.params.id;
+        const updatedProductInfo = req.body
+        console.log(req.body);
+        const result = await ProductServices.updateProductInfoDB(productId, updatedProductInfo)
+        res.status(200).json({
+            success: true,
+            message: 'Product updated successfully!',
+            data: result
+        })
+    } catch (error) {
+        console.log(error);
+    }
+    // const doc = await Products.findOne({ _id: req.params.id });
+    // console.log(doc);
+
+    // res.json(doc);
+    // console.log(req.body);
+}
+
 export const ProductController = {
     createProduct,
     fetchProduct,
-    fetchSingleProduct
+    fetchSingleProduct,
+    updateSingleProduct
 }
