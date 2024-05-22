@@ -26,9 +26,14 @@ const updateProductInfoDB = async (productId: string, updatedProductData: Partia
     return result;
 }
 
+const deleteProductFromDB = async (productId: string) => {
+    const result = await Products.findByIdAndDelete({ _id: productId });
+    return result;
+}
 export const ProductServices = {
     createProductDB,
     fetchProductFromDB,
     fetchSingleProductFromDB,
-    updateProductInfoDB
+    updateProductInfoDB,
+    deleteProductFromDB
 }
