@@ -12,40 +12,9 @@ Implement CRUD operations for product management.
 Implement order management and ensure inventory updates.
 Validate incoming data for product and order creation using Joi/Zod.
 
-API Endpoints
-1.Product Management
-Create a New Product
+How to run this project?
 
-Endpoint: /api/products
-
-Method: POST
-
-2. Retrieve a List of All Products
-
-Endpoint: /api/products
-
-Method: GET
-
-3.Retrieve a Specific Product by ID
-
-Endpoint: /api/products/:productId
-
-Method: GET
-
-4.Update Product Information
-
-Endpoint: /api/products/:productId
-
-Method: PUT
-
-5.Delete a Product
-
-Endpoint: /api/products/:productId
-
-Method: DELETE
-
-6.Search a Product
-
-Endpoint: /api/products?searchTerm=iphone
-
-Method: GET
+- First clone or download the repository
+- Run npm install or yarn to load the node_modules.
+- Go to the root of the project directory from your terminal
+- run "npm run start:dev" to get started with the project
