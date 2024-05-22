@@ -6,7 +6,7 @@ const createProduct = async (req: Request, res: Response) => {
     try {
         const productData = req.body;
         // validation using zod
-        const validatedProductData = ProductValidationSchema.parse(productData); //.validate(productData); // 
+        const validatedProductData = ProductValidationSchema.parse(productData);
         const result = await ProductServices.createProductDB(validatedProductData);
         res.status(200).json({
             success: true,
@@ -14,21 +14,34 @@ const createProduct = async (req: Request, res: Response) => {
             data: result
         });
     } catch (error) {
-        res.send(error);
+        res.status(400).json({
+            success: false,
+            message: error,
+        })
     }
 }
 
 const fetchProduct = async (req: Request, res: Response) => {
     try {
         const { searchTerm } = req.query;
+        /*eslint no-prototype-builtins: "off"*/
         if (req.query.hasOwnProperty('searchTerm') && typeof searchTerm === "string" && searchTerm !== undefined) {
-            console.log(`Im inside and I am ${searchTerm}`);
+
             const result = await ProductServices.fetchProductWithQuery(searchTerm);
-            res.status(200).json({
-                success: true,
-                message: 'Products fetched successfully!',
-                data: result
-            });
+            // if there's no result in the array, then it will throw an error
+            if (result.length === 0) {
+                res.status(404).json({
+                    success: false,
+                    message: "No product found"
+                })
+            } else {
+                res.status(200).json({
+                    success: true,
+                    message: 'Products fetched successfully!',
+                    data: result
+                });
+            }
+
         } else {
             const result = await ProductServices.fetchProductFromDB();
             res.status(200).json({
@@ -39,7 +52,10 @@ const fetchProduct = async (req: Request, res: Response) => {
         }
 
     } catch (error) {
-        console.log(error);
+        res.status(400).json({
+            success: false,
+            message: error,
+        })
     }
 }
 
@@ -53,7 +69,10 @@ const fetchSingleProduct = async (req: Request, res: Response) => {
             data: result
         });
     } catch (error) {
-        console.log(error);
+        res.status(400).json({
+            success: false,
+            message: error,
+        })
     }
 }
 
@@ -61,34 +80,51 @@ const updateSingleProduct = async (req: Request, res: Response) => {
     try {
         const productId = req.params.id;
         const updatedProductInfo = req.body
-        console.log(req.body);
-        const result = await ProductServices.updateProductInfoDB(productId, updatedProductInfo)
-        res.status(200).json({
-            success: true,
-            message: 'Product updated successfully!',
-            data: result
-        })
-    } catch (error) {
-        console.log(error);
-    }
-    // const doc = await Products.findOne({ _id: req.params.id });
-    // console.log(doc);
+        const result = await ProductServices.updateProductInfoDB(productId, updatedProductInfo);
+        if (!result) {
+            res.status(400).json({
+                success: false,
+                message: 'Invalid Product ID',
+            })
+        } else {
+            res.status(200).json({
+                success: true,
+                message: 'Product updated successfully!',
+                data: result
+            })
+        }
 
-    // res.json(doc);
-    // console.log(req.body);
+    } catch (error) {
+        res.status(400).json({
+            success: false,
+            message: error,
+        })
+    }
 }
 
 const deleteProduct = async (req: Request, res: Response) => {
     try {
         const productId = req.params.id;
         const result = await ProductServices.deleteProductFromDB(productId);
-        res.status(200).json({
-            success: true,
-            message: "Product deleted successfully!",
-            data: result
-        })
+        // error handling
+        if (!result) {
+            res.status(404).json({
+                success: false,
+                message: 'Product does not exist'
+            })
+        } else {
+            res.status(200).json({
+                success: true,
+                message: "Product deleted successfully!",
+                data: result
+            })
+        }
+
     } catch (error) {
-        console.log(error);
+        res.status(400).json({
+            success: false,
+            message: error,
+        })
     }
 }
 

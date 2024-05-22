@@ -2,13 +2,10 @@ import { TProduct } from "../products/products.interface";
 import { Products } from "../products/products.model";
 import { Orders } from "./orders.model";
 
-const createAnOrderToDB = async (id: string, quantity: number) => {
-
+const createAnOrderToDB = async (id: string) => {
     const orderedProduct = await Products.findOne({ _id: id }) as TProduct;
-
     return orderedProduct;
 }
-
 
 const updateProductQuantity = async (id: string, quantity: number) => {
     console.log('Id From service', id);

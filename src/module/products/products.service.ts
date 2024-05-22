@@ -2,8 +2,8 @@ import { TProduct } from "./products.interface";
 import { Products } from "./products.model";
 
 // creating a product
-const createProductDB = async (payLoad: TProduct) => {
-    const result = await Products.create(payLoad);
+const createProductDB = async (payload: TProduct) => {
+    const result = await Products.create(payload);
     return result;
 }
 
@@ -15,14 +15,13 @@ const fetchProductFromDB = async () => {
 
 // searching for a product by name or description
 const fetchProductWithQuery = async (query: string) => {
-    let regexVar = `${query}`;
-    console.log(regexVar);
+    const regexQuery = `${query}`;
     const result = await Products.find(
         {
             $or: [
-                { name: { $regex: regexVar, $options: 'i' } },
-                { description: { $regex: regexVar, $options: 'i' } },
-                // { tags: { $in: [regexVar] } }
+                { name: { $regex: regexQuery, $options: 'i' } },
+                { description: { $regex: regexQuery, $options: 'i' } },
+                // { tags: { $in: [regexVar] } } //it needs some work
             ]
         }
     )
