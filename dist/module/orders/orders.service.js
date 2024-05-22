@@ -25,7 +25,7 @@ const fetchAllOrdersFromDB = () => __awaiter(void 0, void 0, void 0, function* (
     return result;
 });
 const fetchOrdersByEmailFromDB = (query) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield orders_model_1.Orders.findOne({
+    const result = yield orders_model_1.Orders.find({
         email: query
     });
     return result;

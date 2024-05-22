@@ -23,7 +23,7 @@ const fetchAllOrdersFromDB = async () => {
 }
 
 const fetchOrdersByEmailFromDB = async (query: string) => {
-    const result = await Orders.findOne({
+    const result = await Orders.find({
         email: query
     });
     return result;

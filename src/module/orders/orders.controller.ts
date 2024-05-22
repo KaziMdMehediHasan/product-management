@@ -77,7 +77,7 @@ const fetchOrder = async (req: Request, res: Response) => {
             // if the email is there we will fetch the order for that specific user
             const result = await OrdersServices.fetchOrdersByEmailFromDB(email);
             // wrong email input will result in no data. Then we will show this error message
-            if (!result) {
+            if (result.length === 0) {
                 res.status(404).json({
                     success: false,
                     message: "Order not found"

@@ -77,7 +77,7 @@ const fetchOrder = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
             // if the email is there we will fetch the order for that specific user
             const result = yield orders_service_1.OrdersServices.fetchOrdersByEmailFromDB(email);
             // wrong email input will result in no data. Then we will show this error message
-            if (!result) {
+            if (result.length === 0) {
                 res.status(404).json({
                     success: false,
                     message: "Order not found"
