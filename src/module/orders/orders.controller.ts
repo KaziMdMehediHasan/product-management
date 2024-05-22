@@ -17,12 +17,24 @@ const createOrder = async (req: Request, res: Response) => {
 }
 const fetchOrder = async (req: Request, res: Response) => {
     try {
-        const result = await OrdersServices.fetchAllOrdersFromDB();
-        res.status(200).json({
-            success: true,
-            message: "Orders fetched successfully!",
-            data: result
-        })
+        const { email } = req.query;
+        console.log(email);
+        if (req.query.hasOwnProperty("email") && typeof email === 'string' && email !== 'undefined') {
+            const result = await OrdersServices.fetchOrdersByEmailFromDB(email);
+            res.status(200).json({
+                success: true,
+                message: "Orders fetched successfully for user email!",
+                data: result
+            })
+        } else {
+            const result = await OrdersServices.fetchAllOrdersFromDB();
+            res.status(200).json({
+                success: true,
+                message: "Orders fetched successfully!",
+                data: result
+            })
+        }
+
     } catch (error) {
         console.log(error);
     }

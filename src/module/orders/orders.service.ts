@@ -11,7 +11,15 @@ const fetchAllOrdersFromDB = async () => {
     return result;
 }
 
+const fetchOrdersByEmailFromDB = async (query: string) => {
+    const result = await Orders.find({
+        email: query
+    });
+    return result;
+}
+
 export const OrdersServices = {
     createAnOrderToDB,
-    fetchAllOrdersFromDB
+    fetchAllOrdersFromDB,
+    fetchOrdersByEmailFromDB
 }

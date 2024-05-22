@@ -20,7 +20,9 @@ const fetchProductWithQuery = async (query: string) => {
     const result = await Products.find(
         {
             $or: [
-                { name: { $regex: regexVar, $options: 'i' } }, { description: { $regex: regexVar, $options: 'i' } }
+                { name: { $regex: regexVar, $options: 'i' } },
+                { description: { $regex: regexVar, $options: 'i' } },
+                // { tags: { $in: [regexVar] } }
             ]
         }
     )
