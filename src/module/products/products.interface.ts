@@ -4,7 +4,7 @@ export type TVariant = {
 }
 export type TInventory = {
     quantity: number;
-    inStock: true;
+    inStock: boolean;
 }
 export type TProduct = {
     _id?: string;
