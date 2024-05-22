@@ -260,7 +260,9 @@ Sample Response:
 }
 ```
 
-// The product should be deleted from the database. 6. Search a product
+// The product should be deleted from the database.
+
+\*\*6. Search a product
 Endpoint: /api/products?searchTerm=iphone
 Method: GET
 Sample Response:

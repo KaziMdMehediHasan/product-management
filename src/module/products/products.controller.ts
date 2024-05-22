@@ -17,12 +17,33 @@ const createProduct = async (req: Request, res: Response) => {
 
 const fetchProduct = async (req: Request, res: Response) => {
     try {
-        const result = await ProductServices.fetchProductFromDB();
-        res.status(200).json({
-            success: true,
-            message: 'Products fetched successfully!',
-            data: result
-        });
+        console.log(typeof req.query.searchTerm);
+        const { searchTerm } = req.query;
+        // console.log(searchTerm)
+        if (!req.query.hasOwnProperty('searchTerm')) {
+            res.status(404).json({
+                status: '404 Not Found',
+                message: 'Search using searchTem field after the base URL'
+            })
+        } else {
+            if (typeof searchTerm === "string" && searchTerm !== undefined) {
+                console.log(`Im inside and I am ${searchTerm}`);
+                const result = await ProductServices.fetchProductWithQuery(searchTerm);
+                res.status(200).json({
+                    success: true,
+                    message: 'Products fetched successfully!',
+                    data: result
+                });
+            } else {
+                const result = await ProductServices.fetchProductFromDB();
+                res.status(200).json({
+                    success: true,
+                    message: 'Products fetched successfully!',
+                    data: result
+                });
+            }
+        }
+
     } catch (error) {
         console.log(error);
     }
