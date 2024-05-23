@@ -19,5 +19,5 @@ const orderSchema = new mongoose_1.Schema({
         type: Number,
         required: true
     }
-});
+}, { versionKey: false });
 exports.Orders = (0, mongoose_1.model)('Orders', orderSchema);

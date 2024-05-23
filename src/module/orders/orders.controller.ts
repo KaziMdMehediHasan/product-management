@@ -22,7 +22,6 @@ const createOrder = async (req: Request, res: Response) => {
             res.status(400).json({
                 success: false,
                 message: "Insufficient quantity available in inventory",
-                data: { product }
             })
         } else {
             // if the quantity is not 0 then we will create the order and update the quantity of that product
@@ -48,6 +47,7 @@ const createOrder = async (req: Request, res: Response) => {
                     data: { order }
                 })
             } else {
+                // if by any chance the product quanity is 0 but the stock status is true. The below code will update the stock status and notify the user about insufficient inventory
                 const updateProductInventory = await Products.findByIdAndUpdate(
                     { _id: product?._id },
                     { $set: { "inventory.inStock": false } }, //when the inventory is empty the stock will be set to false

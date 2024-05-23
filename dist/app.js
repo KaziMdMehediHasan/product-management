@@ -15,5 +15,13 @@ app.use('/api/products', product_route_1.ProductRoutes);
 app.use('/api/orders', orders_route_1.OrderRoutes);
 app.get('/', (req, res) => {
     res.send('Welcome to Assignment-2 Server');
+    console.log(req);
+});
+//handling wrong routes
+app.use((req, res) => {
+    res.status(404).send({
+        "success": false,
+        "message": "Route not found"
+    });
 });
 exports.default = app;

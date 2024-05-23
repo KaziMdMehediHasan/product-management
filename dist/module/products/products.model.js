@@ -4,12 +4,12 @@ exports.Products = void 0;
 const mongoose_1 = require("mongoose");
 const variantSchema = new mongoose_1.Schema({
     type: { type: String, required: true },
-    value: { type: String, required: true }
-});
+    value: { type: String, required: true },
+}, { _id: false });
 const inventorySchema = new mongoose_1.Schema({
     quantity: { type: Number, default: 0 },
     inStock: { type: Boolean, default: true }
-});
+}, { _id: false });
 const productSchema = new mongoose_1.Schema({
     name: { type: String, required: true },
     description: { type: String, required: true },
@@ -24,5 +24,5 @@ const productSchema = new mongoose_1.Schema({
         required: true
     },
     inventory: inventorySchema
-});
+}, { versionKey: false });
 exports.Products = (0, mongoose_1.model)('products', productSchema);

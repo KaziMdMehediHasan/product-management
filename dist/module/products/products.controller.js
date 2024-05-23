@@ -75,11 +75,19 @@ const fetchSingleProduct = (req, res) => __awaiter(void 0, void 0, void 0, funct
     try {
         const productId = req.params.id;
         const result = yield products_service_1.ProductServices.fetchSingleProductFromDB(productId);
-        res.status(200).json({
-            success: true,
-            message: 'Products fetched successfully!',
-            data: result
-        });
+        if (!result) {
+            res.status(404).json({
+                success: false,
+                message: "Product not found"
+            });
+        }
+        else {
+            res.status(200).json({
+                success: true,
+                message: 'Products fetched successfully!',
+                data: result
+            });
+        }
     }
     catch (error) {
         res.status(400).json({

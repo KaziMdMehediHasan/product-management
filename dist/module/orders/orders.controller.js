@@ -30,7 +30,6 @@ const createOrder = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
             res.status(400).json({
                 success: false,
                 message: "Insufficient quantity available in inventory",
-                data: { product }
             });
         }
         else {
@@ -52,6 +51,7 @@ const createOrder = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
                 });
             }
             else {
+                // if by any chance the product quanity is 0 but the stock status is true. The below code will update the stock status and notify the user about insufficient inventory
                 const updateProductInventory = yield products_model_1.Products.findByIdAndUpdate({ _id: product === null || product === void 0 ? void 0 : product._id }, { $set: { "inventory.inStock": false } }, //when the inventory is empty the stock will be set to false
                 { new: true });
                 res.status(400).json({

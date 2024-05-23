@@ -18,6 +18,6 @@ const orderSchema = new Schema<TOrder>({
         type: Number,
         required: true
     }
-})
+}, { versionKey: false })
 
 export const Orders = model<TOrder>('Orders', orderSchema);
